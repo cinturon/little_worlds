@@ -1,13 +1,13 @@
 mod person;
 mod world;
 
-pub use person::PersonId;
+pub use person::{Person, PersonId};
 pub use world::{SimTime, World};
 
 #[cfg(test)]
 mod tests {
 
-    use super::{PersonId, SimTime, World};
+    use super::{Person, PersonId, SimTime, World};
 
     #[test]
     fn test_world() {
@@ -43,5 +43,12 @@ mod tests {
 
         assert_eq!(name, "Alice");
         assert_ne!(first, second);
+    }
+
+    #[test]
+    fn test_person() {
+        let person = Person::new("Alice".to_string(), PersonId::new(1));
+        assert_eq!(person.name, "Alice");
+        assert_eq!(person.id, PersonId::new(1));
     }
 }

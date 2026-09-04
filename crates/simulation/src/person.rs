@@ -1,4 +1,14 @@
+#[derive(Debug, PartialEq)]
+pub struct Person {
+    pub id: PersonId,
+    pub name: String,
+}
 
+impl Person {
+    pub fn new(name: String, id: PersonId) -> Self {
+        Self { id, name }
+    }
+}
 
 #[derive(Debug, PartialEq, Eq, Hash)]
 pub struct PersonId(u64);
