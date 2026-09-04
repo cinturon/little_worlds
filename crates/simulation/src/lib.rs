@@ -2,12 +2,12 @@ mod person;
 mod world;
 
 pub use person::{Person, PersonId};
-pub use world::{SimTime, World};
+pub use world::{add_founders, SimTime, World};
 
 #[cfg(test)]
 mod tests {
 
-    use super::{Person, PersonId, SimTime, World};
+    use super::{add_founders, Person, PersonId, SimTime, World};
 
     #[test]
     fn test_world() {
@@ -61,5 +61,18 @@ mod tests {
         let person2 = Person::new("Bob".to_string(), PersonId::new(2));
         world.add_person(person2);
         assert_eq!(world.population(), 2);
+    }
+
+    #[test]
+    fn test_add_founders() {
+        let mut world = World::new("Test World".to_string());
+        add_founders(&mut world);
+        assert_eq!(world.population(), 5);
+
+        let names = ["Alice", "Bob", "Clara", "Daniel", "Marcus"];
+        for (i, name) in names.iter().enumerate() {
+           assert_eq!(world.get_person(PersonId::new(i as u64 + 1)).unwrap().name, name.to_string().clone());
+           assert_eq!(world.get_person(PersonId::new(i as u64 + 1)).unwrap().id, PersonId::new(i as u64 + 1));
+        }
     }
 }

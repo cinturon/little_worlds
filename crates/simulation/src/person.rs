@@ -10,7 +10,7 @@ impl Person {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct PersonId(u64);
 
 impl PersonId {
