@@ -1,0 +1,43 @@
+---
+description: Gitflow branching — one feature branch per Linear ticket
+alwaysApply: true
+---
+
+# Gitflow for Linear tickets
+
+Use Gitflow. One Linear ticket = one branch. Do not commit ticket work to `main` or `develop`.
+
+## Long-lived branches
+
+- `main` — production / released history
+- `develop` — integration. Create it from `main` if it does not exist yet.
+
+## Per-ticket branches
+
+Start every ticket from an up-to-date `develop`:
+
+```bash
+git checkout develop
+git pull
+git checkout -b feature/jib-486-add-simulated-time
+```
+
+Name: `feature/<ticket-id>-<short-kebab-description>` (lowercase).
+
+```text
+✅ feature/jib-486-add-simulated-time
+❌ cursor/world-and-simtime
+❌ main
+❌ feature/simtime-and-tick   # two tickets
+```
+
+- Features and ticket bugs: `feature/…` from `develop`, PR back to `develop`.
+- Production emergency: `hotfix/jib-xxx-…` from `main`, merge to `main` and `develop`.
+- Milestone ship: `release/m0-empty-universe` from `develop`, merge to `main` and `develop`.
+
+## Agent workflow
+
+1. When a ticket is opened, create/check out its `feature/` branch before editing code.
+2. Keep the branch to that ticket only. Next ticket = new branch from `develop`.
+3. After the ticket is done: commit on the feature branch, PR into `develop`. Do not merge to `main` unless this is a release or hotfix.
+4. Do not use `cursor/` as the ticket branch prefix.
