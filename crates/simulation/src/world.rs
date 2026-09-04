@@ -1,7 +1,10 @@
+use crate::person::Person;
+
 #[derive(Debug)]
 pub struct World {
     pub name: String,
     pub time: SimTime,
+    people: Vec<Person>,
 }
 
 impl World {
@@ -9,11 +12,20 @@ impl World {
         Self { 
             name,
             time: SimTime(0),
+            people: Vec::new(),
         } 
     }
 
     pub fn tick(&mut self) {
         self.time.0 += 1;
+    }
+
+    pub fn population(&self) -> usize {
+        self.people.len()
+    }
+
+    pub fn add_person(&mut self, person: Person) {
+        self.people.push(person);
     }
 }
 

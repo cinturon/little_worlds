@@ -51,4 +51,15 @@ mod tests {
         assert_eq!(person.name, "Alice");
         assert_eq!(person.id, PersonId::new(1));
     }
+
+    #[test]
+    fn test_add_person() {
+        let mut world = World::new("Test World".to_string());
+        let person = Person::new("Alice".to_string(), PersonId::new(1));
+        world.add_person(person);
+        assert_eq!(world.population(), 1);
+        let person2 = Person::new("Bob".to_string(), PersonId::new(2));
+        world.add_person(person2);
+        assert_eq!(world.population(), 2);
+    }
 }
